@@ -15,8 +15,8 @@ import {
 import { IdValidationPipe } from 'src/pipes/id.validation.pipe'
 import { ActorService } from './actor.service'
 import { CreateActorDto } from './dto/actor.dto'
-import { Auth } from '../auth/decorators/Auth.decorators'
 import { ApiTags } from '@nestjs/swagger'
+import {Auth} from "../auth/decorators/auth.decorators";
 
 @ApiTags('Actor')
 @Controller('actors')
