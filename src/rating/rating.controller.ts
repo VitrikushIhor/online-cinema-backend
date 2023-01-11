@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common'
 
 import { Types } from 'mongoose'
-import { Auth } from 'src/auth/decorators/Auth.decorators'
+import { Auth } from 'src/auth/decorators/auth.decorators'
 import { IdValidationPipe } from 'src/pipes/id.validation.pipe'
 import { User } from 'src/user/decorators/user.decorator'
 
