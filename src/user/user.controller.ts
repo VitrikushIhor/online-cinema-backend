@@ -14,7 +14,7 @@ import {
 } from '@nestjs/common'
 import { User } from './decorators/user.decorator'
 import { UserService } from './user.service'
-import { Auth } from 'src/auth/decorators/Auth.decorators'
+import { Auth } from 'src/auth/decorators/Auth.decorators.ts'
 import { UpdateUserDto } from './dto/update.dto'
 import { IdValidationPipe } from 'src/pipes/id.validation.pipe'
 import { UserModel } from './user.model'
