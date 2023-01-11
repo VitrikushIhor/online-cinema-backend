@@ -7,7 +7,7 @@ import {
 	UseInterceptors,
 } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { Auth } from 'src/auth/decorators/Auth.decorators.ts'
+import { Auth } from 'src/auth/decorators/Auth.decorators'
 import { FileResponse } from './dto/file.response'
 import { FilesService } from './files.service'
 import { ApiTags } from '@nestjs/swagger'
