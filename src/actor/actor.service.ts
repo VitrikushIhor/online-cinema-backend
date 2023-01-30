@@ -63,7 +63,8 @@ export class ActorService {
 		const defaultValue: CreateActorDto = {
 			name: "",
 			photo: "",
-			slug: ""
+			slug: "",
+			description: ""
 		};
 		const actor = await this.actorModel.create(defaultValue);
 		return actor._id;
