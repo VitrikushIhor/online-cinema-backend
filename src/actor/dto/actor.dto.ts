@@ -9,4 +9,8 @@ export class CreateActorDto {
 
 	@IsString()
 	photo: string;
+
+	@IsString()
+	description: string;
+
 }

@@ -13,4 +13,7 @@ export class ActorModel extends TimeStamps {
 
 	@prop({ unique: true })
 	slug: string;
+
+	@prop()
+	description: string;
 }
