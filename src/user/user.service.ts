@@ -33,6 +33,8 @@ export class UserService {
 				user.password = await hash(data.password, salt)
 			}
 			user.email = data.email
+			user.avatar = data.avatar
+			user.userName = data.userName
 			if (data.isAdmin || data.isAdmin === false) user.isAdmin = data.isAdmin
 
 			await user.save()
