@@ -36,7 +36,7 @@ export class UserService {
 			user.avatar = data.avatar
 			user.userName = data.userName
 			if (data.isAdmin || data.isAdmin === false) user.isAdmin = data.isAdmin
-
+			console.log(user)
 			await user.save()
 			return
 		}
