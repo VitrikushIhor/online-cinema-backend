@@ -7,7 +7,6 @@ import {
 	UseInterceptors,
 } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { Auth } from 'src/auth/decorators/auth.decorators'
 import { FileResponse } from './dto/file.response'
 import { FilesService } from './files.service'
 import { ApiTags } from '@nestjs/swagger'
@@ -19,7 +18,7 @@ export class FilesController {
 
 	@Post()
 	@HttpCode(200)
-	@Auth('admin')
+	// @Auth('admin')
 	@UseInterceptors(FileInterceptor('image'))
 	async uploadFile(
 		@UploadedFile() file: Express.Multer.File,

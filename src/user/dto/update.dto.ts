@@ -7,5 +7,11 @@ export class UpdateUserDto {
 	@IsString()
 	password?: string
 
+	@IsString()
+	avatar: string
+
+	@IsString()
+	userName: string
+
 	isAdmin?: boolean
 }
