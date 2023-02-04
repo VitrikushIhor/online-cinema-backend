@@ -9,6 +9,7 @@ import { ActorModule } from './actor/actor.module'
 import { MovieModule } from './movie/movie.module'
 import { RatingModule } from './rating/rating.module'
 import { FilesModule } from './files/files.module'
+import { CommentModule } from './comment/comment.module';
 
 @Module({
 	imports: [
@@ -25,6 +26,7 @@ import { FilesModule } from './files/files.module'
 		ActorModule,
 		MovieModule,
 		RatingModule,
+		CommentModule,
 	],
 	controllers: [],
 	providers: [],

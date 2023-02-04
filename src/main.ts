@@ -20,7 +20,8 @@ async function start() {
 		.addTag('Genre')
 		.addTag('Movie')
 		.addTag('Rating')
-		.addTag('File')
+		 .addTag('File')
+		 .addTag('Comment')
 		.build()
 
 	const documentSwagger = SwaggerModule.createDocument(app, configSwagger)
