@@ -5,6 +5,7 @@ import {IdValidationPipe} from '../pipes/id.validation.pipe';
 import {CommentDto} from './dto/comment.dto';
 import {User} from '../user/decorators/user.decorator';
 import {ApiTags} from '@nestjs/swagger';
+import { Auth } from 'src/auth/decorators/auth.decorators';
 
 
 
@@ -23,6 +24,7 @@ export class CommentController {
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
   @Post()
+  @Auth()
   async createComment(
      @User('_id') _id: Types.ObjectId,
      @Body() dto: CommentDto
