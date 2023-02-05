@@ -46,4 +46,5 @@ export class MovieModel extends TimeStamps {
 
 	@prop({ unique: true })
 	slug: string
+
 }

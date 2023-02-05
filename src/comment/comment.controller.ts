@@ -2,7 +2,6 @@ import {Body, Controller, Get, HttpCode, Param, UsePipes, ValidationPipe,Post} f
 import { CommentService } from './comment.service';
 import {Types} from 'mongoose';
 import {IdValidationPipe} from '../pipes/id.validation.pipe';
-import {Auth} from '../auth/decorators/auth.decorators';
 import {CommentDto} from './dto/comment.dto';
 import {User} from '../user/decorators/user.decorator';
 import {ApiTags} from '@nestjs/swagger';
@@ -14,6 +13,13 @@ import {ApiTags} from '@nestjs/swagger';
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
+
+  @Get('by-movie/:movieId')
+  async getCommentByVideoId(
+     @Param('movieId', IdValidationPipe) movieId: Types.ObjectId
+  ) {
+    return this.commentService.byMovieId(movieId)
+  }
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
   @Post()

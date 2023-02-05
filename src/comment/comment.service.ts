@@ -12,6 +12,13 @@ export class CommentService {
 		 private readonly CommentModel: ModelType<CommentModel>
 	) {}
 
+	async byMovieId(movieId: Types.ObjectId) {
+		return this.CommentModel.find({ movie: movieId }, '-__v')
+			 .sort({ createdAt: 'desc' })
+			 .populate('user', 'userName  avatar ')
+			 .exec()
+	}
+
 	async create(userId: Types.ObjectId, dto: CommentDto) {
 		return this.CommentModel.create({
 			message: dto.message,
