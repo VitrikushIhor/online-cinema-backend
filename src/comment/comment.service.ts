@@ -15,7 +15,7 @@ export class CommentService {
 	async byMovieId(movieId: Types.ObjectId) {
 		return this.CommentModel.find({ movie: movieId }, '-__v')
 			 .sort({ createdAt: 'desc' })
-			 .populate('user', 'userName  avatar ')
+			 .populate('user', 'userName  avatar email ')
 			 .exec()
 	}
 
