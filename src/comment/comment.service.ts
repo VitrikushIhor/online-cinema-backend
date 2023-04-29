@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {ForbiddenException, Injectable, NotFoundException} from '@nestjs/common';
 import {InjectModel} from 'nestjs-typegoose';
 import {ModelType} from '@typegoose/typegoose/lib/types';
 import {CommentDto} from './dto/comment.dto';
@@ -12,18 +12,31 @@ export class CommentService {
 		 private readonly CommentModel: ModelType<CommentModel>
 	) {}
 
-	async byMovieId(movieId: Types.ObjectId) {
-		return this.CommentModel.find({ movie: movieId }, '-__v')
+
+
+	async byMovieId(movieId: string) {
+		const comments = await this.CommentModel
+			 .find({ movie: movieId }, '-__v')
 			 .sort({ createdAt: 'desc' })
-			 .populate('user', 'userName  avatar email ')
-			 .exec()
+			 .populate('user', 'userName avatar email');
+
+		return comments;
 	}
 
-	async create(userId: Types.ObjectId, dto: CommentDto) {
-		return this.CommentModel.create({
-			message: dto.message,
-			movie: dto.movieId,
-			user: userId
-		})
+	async create(userId: string, dto: CommentDto) {
+		const { message, movieId } = dto;
+
+		const newComment = await this.CommentModel.create({
+			message,
+			movie: movieId,
+			user: userId,
+		});
+
+		return newComment;
+	}
+
+	async delete(commentId: string) {
+		const deletedComment = await this.CommentModel.findByIdAndDelete(commentId);
+		return deletedComment;
 	}
 }

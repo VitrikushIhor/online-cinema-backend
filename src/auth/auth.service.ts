@@ -4,7 +4,6 @@ import { ModelType } from '@typegoose/typegoose/lib/types'
 import { genSalt, hash, compare } from 'bcryptjs'
 import { InjectModel } from 'nestjs-typegoose'
 import { RefreshTokenDto } from './dto/refreshToken.dto'
-
 import { AuthDto } from './dto/auth.dto'
 import { UserModel } from '../user/user.model'
 
@@ -30,6 +29,8 @@ export class AuthService {
 		const salt = await genSalt(10)
 		const newUser = new this.userModel({
 			email,
+			userName : email,
+			avatar:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png",
 			password: await hash(password, salt),
 		})
 		const user = await newUser.save()
