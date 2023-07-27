@@ -29,8 +29,7 @@ export class ActorService {
 			};
 		}
 
-		return (
-			this.actorModel
+		return ( await this.actorModel
 				.aggregate()
 				.match(options)
 				.lookup({
@@ -50,13 +49,13 @@ export class ActorService {
 	}
 
 	async bySlug(slug: string): Promise<DocumentType<ActorModel>> {
-		return this.actorModel.findOne({slug}).exec();
+		return await this.actorModel.findOne({slug}).exec();
 	}
 
 	/* Admin area */
 
 	async byId(id: string): Promise<DocumentType<ActorModel>> {
-		return this.actorModel.findById(id).exec();
+		return await this.actorModel.findById(id).exec();
 	}
 
 	async create(): Promise<Types.ObjectId> {
@@ -74,10 +73,10 @@ export class ActorService {
 		id: string,
 		dto: CreateActorDto
 	): Promise<DocumentType<ActorModel> | null> {
-		return this.actorModel.findByIdAndUpdate(id, dto, {new: true}).exec();
+		return await  this.actorModel.findByIdAndUpdate(id, dto, {new: true}).exec();
 	}
 
 	async delete(id: string): Promise<DocumentType<ActorModel> | null> {
-		return this.actorModel.findByIdAndDelete(id).exec();
+		return await this.actorModel.findByIdAndDelete(id).exec();
 	}
 }

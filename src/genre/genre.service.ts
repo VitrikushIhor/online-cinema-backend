@@ -34,7 +34,7 @@ export class GenreService {
 			}
 		}
 
-		return this.genreModel
+		return await this.genreModel
 			.find(options)
 			.select('-updatedAt -__v')
 			.sort({createdAt: 'desc'})
@@ -42,11 +42,11 @@ export class GenreService {
 	}
 
 	async bySlug(slug: string): Promise<DocumentType<GenreModel>> {
-		return this.genreModel.findOne({slug}).exec()
+		return await this.genreModel.findOne({slug}).exec()
 	}
 
 	async getPopular(): Promise<DocumentType<GenreModel>[]> {
-		return this.genreModel
+		return await this.genreModel
 			.find()
 			.select('-updatedAt -__v')
 			.sort({createdAt: 'desc'})
@@ -77,7 +77,7 @@ export class GenreService {
 	/* Admin area */
 
 	async byId(id: string): Promise<DocumentType<GenreModel>> {
-		return this.genreModel.findById(id).exec()
+		return await this.genreModel.findById(id).exec()
 	}
 
 	async create(): Promise<Types.ObjectId> {
@@ -95,10 +95,10 @@ export class GenreService {
 		id: string,
 		dto: CreateGenreDto
 	): Promise<DocumentType<GenreModel> | null> {
-		return this.genreModel.findByIdAndUpdate(id, dto, {new: true}).exec()
+		return await this.genreModel.findByIdAndUpdate(id, dto, {new: true}).exec()
 	}
 
 	async delete(id: string): Promise<DocumentType<GenreModel> | null> {
-		return this.genreModel.findByIdAndDelete(id).exec()
+		return await this.genreModel.findByIdAndDelete(id).exec()
 	}
 }
