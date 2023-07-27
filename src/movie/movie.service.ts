@@ -26,7 +26,7 @@ export class MovieService {
 			}
 		}
 
-		return this.movieModel
+		return await this.movieModel
 			.find(options)
 			.select('-updatedAt -__v')
 			.sort({createdAt: 'desc'})
@@ -35,21 +35,21 @@ export class MovieService {
 	}
 
 	async bySlug(slug: string): Promise<DocumentType<MovieModel>> {
-		return this.movieModel.findOne({slug}).populate('genres actors').exec()
+		return await this.movieModel.findOne({slug}).populate('genres actors').exec()
 	}
 
 	async byActor(actorId: Types.ObjectId): Promise<DocumentType<MovieModel>[]> {
-		return this.movieModel.find({actors: actorId}).exec()
+		return await this.movieModel.find({actors: actorId}).exec()
 	}
 
 	async byGenres(
 		genreIds: Types.ObjectId[]
 	): Promise<DocumentType<MovieModel>[]> {
-		return this.movieModel.find({genres: {$in: genreIds}}).exec()
+		return await this.movieModel.find({genres: {$in: genreIds}}).exec()
 	}
 
 	async updateCountOpened(slug: string) {
-		return this.movieModel
+		return await this.movieModel
 			.findOneAndUpdate({slug}, {$inc: {countOpened: 1}})
 			.exec()
 	}
@@ -57,7 +57,7 @@ export class MovieService {
 	/* Admin area */
 
 	async byId(id: string): Promise<DocumentType<MovieModel>> {
-		return this.movieModel.findById(id).exec()
+		return await this.movieModel.findById(id).exec()
 	}
 
 	async create(): Promise<Types.ObjectId> {
@@ -75,15 +75,15 @@ export class MovieService {
 	}
 
 	async update(id: string, dto: CreateMovieDto): Promise<DocumentType<MovieModel> | null> {
-		return this.movieModel.findByIdAndUpdate(id, dto, {new: true}).exec()
+		return await this.movieModel.findByIdAndUpdate(id, dto, {new: true}).exec()
 	}
 
 	async delete(id: string): Promise<DocumentType<MovieModel> | null> {
-		return this.movieModel.findByIdAndDelete(id).exec()
+		return await this.movieModel.findByIdAndDelete(id).exec()
 	}
 
 	async getMostPopular(): Promise<DocumentType<MovieModel>[]> {
-		return this.movieModel
+		return await this.movieModel
 			.find({countOpened: {$gt: 0}})
 			.sort({countOpened: -1})
 			.populate('genres')
@@ -91,7 +91,7 @@ export class MovieService {
 	}
 
 	async updateRating(id: string, newRating: number) {
-		return this.movieModel
+		return await this.movieModel
 			.findByIdAndUpdate(id, {rating: newRating}, {new: true})
 			.exec()
 	}

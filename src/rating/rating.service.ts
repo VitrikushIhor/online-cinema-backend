@@ -49,7 +49,7 @@ export class RatingService {
 	}
 
 	async getMovieValueByUser(movieId: Types.ObjectId, userId: Types.ObjectId) {
-		return this.ratingModel
+		return await this.ratingModel
 			.findOne({ movieId, userId })
 			.select('value')
 			.exec()

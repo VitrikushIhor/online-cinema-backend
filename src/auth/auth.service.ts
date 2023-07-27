@@ -61,7 +61,7 @@ export class AuthService {
 	}
 
 	async findByEmail(email: string) {
-		return this.userModel.findOne({ email }).exec()
+		return await this.userModel.findOne({ email }).exec()
 	}
 
 	async validateUser(email: string, password: string): Promise<UserModel> {

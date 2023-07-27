@@ -44,7 +44,7 @@ export class UserService {
 	}
 
 	async getFavoriteMovies(_id: string) {
-		return this.userModel
+		return await this.userModel
 			.findById(_id, 'favorites')
 			.populate({
 				path: 'favorites',
@@ -69,7 +69,7 @@ export class UserService {
 	}
 
 	async getCount() {
-		return this.userModel.find().count().exec()
+		return await  this.userModel.find().count().exec()
 	}
 
 	async getAll(searchTerm?: string): Promise<DocumentType<UserModel>[]> {
@@ -85,7 +85,7 @@ export class UserService {
 			}
 		}
 
-		return this.userModel
+		return await this.userModel
 			.find(options)
 			.select('-password -updatedAt -__v')
 			.sort({ createdAt: 'desc' })
@@ -93,6 +93,6 @@ export class UserService {
 	}
 
 	async delete(id: string): Promise<DocumentType<UserModel> | null> {
-		return this.userModel.findByIdAndDelete(id).exec()
+		return await this.userModel.findByIdAndDelete(id).exec()
 	}
 }
