@@ -1,5 +1,11 @@
 {
     "version": 2,
+    "env": {
+        "MONGO_URI": "@online_cinema_mongo_uri",
+        "NODE_ENV": "@online_cinema_node_env",
+        "JWT_SECRET ": "@online_cinema_jwt_secret",
+        "PORT ": "@online_cinema_port",
+    },
     "builds": [
         {
             "src": "src/main.ts",
