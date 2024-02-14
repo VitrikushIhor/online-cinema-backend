@@ -1,4 +1,5 @@
 # Online Cinema Backend
+![image](https://github.com/VitrikushIhor/online-cinema-backend/assets/87604224/36295fde-7e5e-479a-b13c-2e16a9aac113)
 
 This is the backend for the Online Cinema project. It provides a RESTful API to manage movies, comments, and users.
 
