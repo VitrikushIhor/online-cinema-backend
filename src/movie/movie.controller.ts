@@ -13,7 +13,7 @@ import {
 	ValidationPipe,
 } from '@nestjs/common'
 import { IdValidationPipe } from '../pipes/id.validation.pipe'
-import { CreateMovieDto } from './dto/create-movie.dto'
+import { CreateMovieDto, UpdateMovieDto } from './dto/create-movie.dto'
 import { MovieService } from './movie.service'
 import { Auth } from 'src/auth/decorators/auth.decorators'
 import { Types } from 'mongoose'
@@ -78,7 +78,7 @@ export class MovieController {
 	@Auth('admin')
 	async update(
 		@Param('id', IdValidationPipe) id: string,
-		@Body() dto: CreateMovieDto
+		@Body() dto: UpdateMovieDto
 	) {
 		const updateMovie = await this.movieService.update(id, dto)
 		if (!updateMovie) throw new NotFoundException('Movie not found')

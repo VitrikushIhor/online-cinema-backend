@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator'
+import { IsOptional, IsString } from 'class-validator'
 
 export class CreateGenreDto {
 	@IsString()
@@ -10,6 +10,24 @@ export class CreateGenreDto {
 	@IsString()
 	description: string
 
+	@IsString()
+	icon: string
+}
+
+export class UpdateGenreDto {
+	@IsOptional()
+	@IsString()
+	name: string
+
+	@IsOptional()
+	@IsString()
+	slug: string
+
+	@IsOptional()
+	@IsString()
+	description: string
+
+	@IsOptional()
 	@IsString()
 	icon: string
 }

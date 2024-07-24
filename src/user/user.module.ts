@@ -3,6 +3,7 @@ import { UserService } from './user.service'
 import { UserController } from './user.controller'
 import { TypegooseModule } from 'nestjs-typegoose'
 import { UserModel } from './user.model'
+import { CommentModule } from '../comment/comment.module'
 
 @Module({
 	controllers: [UserController],
@@ -15,6 +16,7 @@ import { UserModel } from './user.model'
 				},
 			},
 		]),
+		CommentModule
 	],
 	providers: [UserService],
 	exports: [UserService],

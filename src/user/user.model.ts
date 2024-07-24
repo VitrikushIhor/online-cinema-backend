@@ -23,3 +23,4 @@ export class UserModel extends TimeStamps {
 	@prop({ default: [], ref: () => MovieModel })
 	favorites?: Ref<MovieModel>[]
 }
+export type UserProfile = Omit<UserModel, "password" | "favorites" |"isAdmin"|"id">

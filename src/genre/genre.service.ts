@@ -3,7 +3,7 @@ import {DocumentType, ModelType} from '@typegoose/typegoose/lib/types'
 import {Types} from 'mongoose'
 import {InjectModel} from 'nestjs-typegoose'
 import {MovieService} from 'src/movie/movie.service'
-import {CreateGenreDto} from './dto/create-genre.dto'
+import { CreateGenreDto, UpdateGenreDto } from './dto/create-genre.dto'
 import {GenreModel} from './genre.model'
 import {ICollection} from './interfaces/genre.interface'
 
@@ -93,7 +93,7 @@ export class GenreService {
 
 	async update(
 		id: string,
-		dto: CreateGenreDto
+		dto: UpdateGenreDto
 	): Promise<DocumentType<GenreModel> | null> {
 		return await this.genreModel.findByIdAndUpdate(id, dto, {new: true}).exec()
 	}

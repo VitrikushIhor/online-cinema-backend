@@ -1,4 +1,4 @@
-import { IsString } from "class-validator";
+import { IsOptional, IsString } from 'class-validator'
 
 export class CreateActorDto {
 	@IsString()
@@ -12,5 +12,24 @@ export class CreateActorDto {
 
 	@IsString()
 	description: string;
+
+}
+
+export class UpdateActorDto {
+	@IsOptional()
+	@IsString()
+	name?: string;
+
+	@IsOptional()
+	@IsString()
+	slug?: string;
+
+	@IsOptional()
+	@IsString()
+	photo?: string;
+
+	@IsOptional()
+	@IsString()
+	description?: string;
 
 }
