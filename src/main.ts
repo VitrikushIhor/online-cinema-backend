@@ -9,11 +9,11 @@ async function start() {
 	// eslint-disable-next-line no-console
 	console.log(PORT)
 
-	app.enableCors({
-  	origin: 'https://space-cinema.vercel.app', 
-  	methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  	credentials: true,
-	});
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
 	app.setGlobalPrefix('api')
 
 	const configSwagger = new DocumentBuilder()
