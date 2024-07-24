@@ -11,3 +11,4 @@ export declare class UserModel extends TimeStamps {
     isAdmin?: boolean;
     favorites?: Ref<MovieModel>[];
 }
+export type UserProfile = Omit<UserModel, "password" | "favorites" | "isAdmin" | "id">;

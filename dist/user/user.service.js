@@ -17,9 +17,11 @@ const common_1 = require("@nestjs/common");
 const bcryptjs_1 = require("bcryptjs");
 const nestjs_typegoose_1 = require("nestjs-typegoose");
 const user_model_1 = require("./user.model");
+const comment_service_1 = require("../comment/comment.service");
 let UserService = class UserService {
-    constructor(userModel) {
+    constructor(userModel, commentService) {
         this.userModel = userModel;
+        this.commentService = commentService;
     }
     async byId(id) {
         const user = await this.userModel.findById(id).exec();
@@ -27,26 +29,42 @@ let UserService = class UserService {
             return user;
         throw new common_1.NotFoundException('User not found');
     }
-    async updateProfile(_id, data) {
-        const user = await this.userModel.findById(_id);
-        const isSameUser = await this.userModel.findOne({ email: data.email });
-        if (isSameUser && String(_id) !== String(isSameUser._id)) {
-            throw new common_1.NotFoundException('Email busy');
-        }
+    async getProfile(id) {
+        const user = await this.userModel.findById(id);
         if (user) {
-            if (data.password) {
-                const salt = await (0, bcryptjs_1.genSalt)(10);
-                user.password = await (0, bcryptjs_1.hash)(data.password, salt);
-            }
-            user.email = data.email;
-            user.avatar = data.avatar;
-            user.userName = data.userName;
-            if (data.isAdmin || data.isAdmin === false)
-                user.isAdmin = data.isAdmin;
-            await user.save();
-            return;
+            return {
+                _id: user._id,
+                email: user.email,
+                userName: user.userName,
+                avatar: user.avatar
+            };
         }
         throw new common_1.NotFoundException('User not found');
+    }
+    async updateProfile(_id, data) {
+        if (data.email && data.email.trim() !== '') {
+            const isSameUser = await this.userModel.findOne({ email: data.email });
+            if (isSameUser && String(_id) !== String(isSameUser._id)) {
+                throw new common_1.BadRequestException('Email is already in use');
+            }
+        }
+        const user = await this.userModel.findById(_id);
+        if (!user) {
+            throw new common_1.NotFoundException('User not found');
+        }
+        let newPassword;
+        if (data.password && data.password.trim() !== '') {
+            const salt = await (0, bcryptjs_1.genSalt)(10);
+            newPassword = await (0, bcryptjs_1.hash)(data.password, salt);
+        }
+        const updateData = Object.assign({}, data);
+        if (newPassword) {
+            updateData.password = newPassword;
+        }
+        const updatedUser = await this.userModel.findByIdAndUpdate(_id, updateData, { new: true }).exec();
+        if (!updatedUser) {
+            throw new common_1.NotFoundException('Failed to update user');
+        }
     }
     async getFavoriteMovies(_id) {
         return await this.userModel
@@ -91,13 +109,15 @@ let UserService = class UserService {
             .exec();
     }
     async delete(id) {
-        return await this.userModel.findByIdAndDelete(id).exec();
+        const user = await this.userModel.findByIdAndDelete(id).exec();
+        const comment = await this.commentService.deleteByUserId(id);
+        return user;
     }
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, nestjs_typegoose_1.InjectModel)(user_model_1.UserModel)),
-    __metadata("design:paramtypes", [Object])
+    __metadata("design:paramtypes", [Object, comment_service_1.CommentService])
 ], UserService);
 exports.UserService = UserService;
 //# sourceMappingURL=user.service.js.map

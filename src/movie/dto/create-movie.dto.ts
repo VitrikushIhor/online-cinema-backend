@@ -1,4 +1,4 @@
-import { IsArray, IsNumber, IsObject, IsString } from 'class-validator'
+import { IsArray, IsNumber, IsObject, IsOptional, IsString } from 'class-validator'
 
 export class Parameter {
 	@IsNumber()
@@ -38,3 +38,41 @@ export class CreateMovieDto {
 	@IsString()
 	slug: string
 }
+
+export class UpdateMovieDto {
+	@IsOptional()
+	@IsString()
+	poster: string
+
+	@IsOptional()
+	@IsString()
+	bigPoster: string
+
+	@IsOptional()
+	@IsString()
+	title: string
+
+	@IsOptional()
+	@IsObject()
+	parameters?: Parameter
+
+	@IsOptional()
+	@IsArray()
+	@IsString({ each: true })
+	genres: string[]
+
+	@IsOptional()
+	@IsArray()
+	@IsString({ each: true })
+	actors: string[]
+
+	@IsOptional()
+	@IsString()
+	videoUrl: string
+
+	@IsOptional()
+	@IsString()
+	slug: string
+}
+
+

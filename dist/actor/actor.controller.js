@@ -86,7 +86,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id', id_validation_pipe_1.IdValidationPipe)),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, actor_dto_1.CreateActorDto]),
+    __metadata("design:paramtypes", [String, actor_dto_1.UpdateActorDto]),
     __metadata("design:returntype", Promise)
 ], ActorController.prototype, "update", null);
 __decorate([

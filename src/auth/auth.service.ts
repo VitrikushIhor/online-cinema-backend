@@ -6,13 +6,23 @@ import { InjectModel } from 'nestjs-typegoose'
 import { RefreshTokenDto } from './dto/refreshToken.dto'
 import { AuthDto } from './dto/auth.dto'
 import { UserModel } from '../user/user.model'
+import { ConfigService } from '@nestjs/config'
+import { v2 as cloudinary } from 'cloudinary';
+import * as jdenticon from 'jdenticon';
 
 @Injectable()
 export class AuthService {
 	constructor(
 		@InjectModel(UserModel) private readonly userModel: ModelType<UserModel>,
-		private readonly jwtService: JwtService
-	) {}
+		private readonly jwtService: JwtService,
+		private readonly configService: ConfigService
+	) {
+		cloudinary.config({
+			cloud_name: this.configService.get<string>('CLOUDINARY_CLOUD_NAME'),
+			api_key: this.configService.get<string>('CLOUDINARY_API_KEY'),
+			api_secret: this.configService.get<string>('CLOUDINARY_SECRET_KEY'),
+		});
+	}
 
 	async login({ email, password }: AuthDto) {
 		const user = await this.validateUser(email, password)
@@ -27,10 +37,19 @@ export class AuthService {
 
 	async register({ email, password }: AuthDto) {
 		const salt = await genSalt(10)
+
+		const png = jdenticon.toPng(email, 200)
+		const pngString = png.toString('base64');
+
+		const cloudinaryResponse = await cloudinary.uploader.upload(`data:image/png;base64,${pngString}`, {
+			folder: 'space-cinema/avatars',
+			public_id: `${email}_${Date.now()}`,
+		});
+
 		const newUser = new this.userModel({
 			email,
 			userName : email,
-			avatar:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png",
+			avatar:cloudinaryResponse.url,
 			password: await hash(password, salt),
 		})
 		const user = await newUser.save()

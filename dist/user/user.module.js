@@ -12,6 +12,7 @@ const user_service_1 = require("./user.service");
 const user_controller_1 = require("./user.controller");
 const nestjs_typegoose_1 = require("nestjs-typegoose");
 const user_model_1 = require("./user.model");
+const comment_module_1 = require("../comment/comment.module");
 let UserModule = class UserModule {
 };
 UserModule = __decorate([
@@ -26,6 +27,7 @@ UserModule = __decorate([
                     },
                 },
             ]),
+            comment_module_1.CommentModule
         ],
         providers: [user_service_1.UserService],
         exports: [user_service_1.UserService],

@@ -4,6 +4,7 @@ import { CommentController } from './comment.controller';
 import {ConfigModule} from '@nestjs/config';
 import {TypegooseModule} from 'nestjs-typegoose';
 import {CommentModel} from './comment.model';
+import { MovieService } from '../movie/movie.service'
 
 @Module({
   controllers: [CommentController],
@@ -18,6 +19,7 @@ import {CommentModel} from './comment.model';
       }
     ]),
     ConfigModule
-  ]
+  ],
+  exports: [CommentService],
 })
 export class CommentModule {}

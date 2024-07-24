@@ -38,4 +38,5 @@ export declare class CommentService {
     delete(commentId: string): Promise<import("mongoose").Document<Types.ObjectId, import("@typegoose/typegoose/lib/types").BeAnObject, CommentModel> & CommentModel & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction & Required<{
         _id: Types.ObjectId;
     }>>;
+    deleteByUserId(userId: string): Promise<import("mongodb").DeleteResult>;
 }

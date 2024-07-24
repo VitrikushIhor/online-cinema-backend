@@ -18,10 +18,19 @@ const jwt_1 = require("@nestjs/jwt");
 const bcryptjs_1 = require("bcryptjs");
 const nestjs_typegoose_1 = require("nestjs-typegoose");
 const user_model_1 = require("../user/user.model");
+const config_1 = require("@nestjs/config");
+const cloudinary_1 = require("cloudinary");
+const jdenticon = require("jdenticon");
 let AuthService = class AuthService {
-    constructor(userModel, jwtService) {
+    constructor(userModel, jwtService, configService) {
         this.userModel = userModel;
         this.jwtService = jwtService;
+        this.configService = configService;
+        cloudinary_1.v2.config({
+            cloud_name: this.configService.get('CLOUDINARY_CLOUD_NAME'),
+            api_key: this.configService.get('CLOUDINARY_API_KEY'),
+            api_secret: this.configService.get('CLOUDINARY_SECRET_KEY'),
+        });
     }
     async login({ email, password }) {
         const user = await this.validateUser(email, password);
@@ -30,10 +39,16 @@ let AuthService = class AuthService {
     }
     async register({ email, password }) {
         const salt = await (0, bcryptjs_1.genSalt)(10);
+        const png = jdenticon.toPng(email, 200);
+        const pngString = png.toString('base64');
+        const cloudinaryResponse = await cloudinary_1.v2.uploader.upload(`data:image/png;base64,${pngString}`, {
+            folder: 'space-cinema/avatars',
+            public_id: `${email}_${Date.now()}`,
+        });
         const newUser = new this.userModel({
             email,
             userName: email,
-            avatar: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png",
+            avatar: cloudinaryResponse.url,
             password: await (0, bcryptjs_1.hash)(password, salt),
         });
         const user = await newUser.save();
@@ -83,7 +98,8 @@ let AuthService = class AuthService {
 AuthService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, nestjs_typegoose_1.InjectModel)(user_model_1.UserModel)),
-    __metadata("design:paramtypes", [Object, jwt_1.JwtService])
+    __metadata("design:paramtypes", [Object, jwt_1.JwtService,
+        config_1.ConfigService])
 ], AuthService);
 exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map

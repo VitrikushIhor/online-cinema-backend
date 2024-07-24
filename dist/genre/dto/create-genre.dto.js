@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateGenreDto = void 0;
+exports.UpdateGenreDto = exports.CreateGenreDto = void 0;
 const class_validator_1 = require("class-validator");
 class CreateGenreDto {
 }
@@ -30,4 +30,27 @@ __decorate([
     __metadata("design:type", String)
 ], CreateGenreDto.prototype, "icon", void 0);
 exports.CreateGenreDto = CreateGenreDto;
+class UpdateGenreDto {
+}
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateGenreDto.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateGenreDto.prototype, "slug", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateGenreDto.prototype, "description", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateGenreDto.prototype, "icon", void 0);
+exports.UpdateGenreDto = UpdateGenreDto;
 //# sourceMappingURL=create-genre.dto.js.map

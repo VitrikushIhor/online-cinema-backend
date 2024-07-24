@@ -8,8 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FilesModule = void 0;
 const common_1 = require("@nestjs/common");
-const serve_static_1 = require("@nestjs/serve-static");
-const app_root_path_1 = require("app-root-path");
+const config_1 = require("@nestjs/config");
 const files_controller_1 = require("./files.controller");
 const files_service_1 = require("./files.service");
 let FilesModule = class FilesModule {
@@ -17,13 +16,11 @@ let FilesModule = class FilesModule {
 FilesModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            serve_static_1.ServeStaticModule.forRoot({
-                rootPath: `${app_root_path_1.path}/uploads`,
-                serveRoot: '/uploads',
-            }),
+            config_1.ConfigModule.forRoot(),
         ],
         providers: [files_service_1.FilesService],
         controllers: [files_controller_1.FilesController],
+        exports: [files_service_1.FilesService],
     })
 ], FilesModule);
 exports.FilesModule = FilesModule;

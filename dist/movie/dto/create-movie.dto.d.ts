@@ -13,3 +13,13 @@ export declare class CreateMovieDto {
     videoUrl: string;
     slug: string;
 }
+export declare class UpdateMovieDto {
+    poster: string;
+    bigPoster: string;
+    title: string;
+    parameters?: Parameter;
+    genres: string[];
+    actors: string[];
+    videoUrl: string;
+    slug: string;
+}

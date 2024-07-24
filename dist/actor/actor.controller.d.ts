@@ -24,7 +24,7 @@
 /// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
 import { ActorService } from './actor.service';
-import { CreateActorDto } from './dto/actor.dto';
+import { UpdateActorDto } from './dto/actor.dto';
 export declare class ActorController {
     private readonly actorService;
     constructor(actorService: ActorService);
@@ -32,6 +32,6 @@ export declare class ActorController {
     bySlug(slug: string): Promise<import("@typegoose/typegoose").DocumentType<import("./actor.model").ActorModel, import("@typegoose/typegoose/lib/types").BeAnObject>>;
     create(): Promise<import("mongoose").Types.ObjectId>;
     get(id: string): Promise<import("@typegoose/typegoose").DocumentType<import("./actor.model").ActorModel, import("@typegoose/typegoose/lib/types").BeAnObject>>;
-    update(id: string, dto: CreateActorDto): Promise<import("@typegoose/typegoose").DocumentType<import("./actor.model").ActorModel, import("@typegoose/typegoose/lib/types").BeAnObject>>;
+    update(id: string, dto: UpdateActorDto): Promise<import("@typegoose/typegoose").DocumentType<import("./actor.model").ActorModel, import("@typegoose/typegoose/lib/types").BeAnObject>>;
     delete(id: string): Promise<void>;
 }

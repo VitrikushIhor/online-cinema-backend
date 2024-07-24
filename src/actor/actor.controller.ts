@@ -14,7 +14,7 @@ import {
 } from '@nestjs/common'
 import { IdValidationPipe } from 'src/pipes/id.validation.pipe'
 import { ActorService } from './actor.service'
-import { CreateActorDto } from './dto/actor.dto'
+import { CreateActorDto, UpdateActorDto } from './dto/actor.dto'
 import { ApiTags } from '@nestjs/swagger'
 import {Auth} from "../auth/decorators/auth.decorators";
 
@@ -53,7 +53,7 @@ export class ActorController {
 	@Auth('admin')
 	async update(
 		@Param('id', IdValidationPipe) id: string,
-		@Body() dto: CreateActorDto
+		@Body() dto: UpdateActorDto
 	) {
 		const updateActor = await this.actorService.update(id, dto)
 		if (!updateActor) throw new NotFoundException('Actor not found')

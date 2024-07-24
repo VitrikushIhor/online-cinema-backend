@@ -29,7 +29,8 @@ CommentModule = __decorate([
                 }
             ]),
             config_1.ConfigModule
-        ]
+        ],
+        exports: [comment_service_1.CommentService],
     })
 ], CommentModule);
 exports.CommentModule = CommentModule;

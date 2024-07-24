@@ -3,7 +3,7 @@ import {DocumentType, ModelType} from '@typegoose/typegoose/lib/types'
 import {Types} from 'mongoose'
 import {InjectModel} from 'nestjs-typegoose'
 
-import {CreateMovieDto} from './dto/create-movie.dto'
+import { CreateMovieDto, UpdateMovieDto } from './dto/create-movie.dto'
 import {MovieModel} from './movie.model'
 
 @Injectable()
@@ -74,7 +74,7 @@ export class MovieService {
 		return movie._id
 	}
 
-	async update(id: string, dto: CreateMovieDto): Promise<DocumentType<MovieModel> | null> {
+	async update(id: string, dto: UpdateMovieDto): Promise<DocumentType<MovieModel> | null> {
 		return await this.movieModel.findByIdAndUpdate(id, dto, {new: true}).exec()
 	}
 

@@ -127,7 +127,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id', id_validation_pipe_1.IdValidationPipe)),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, create_movie_dto_1.CreateMovieDto]),
+    __metadata("design:paramtypes", [String, create_movie_dto_1.UpdateMovieDto]),
     __metadata("design:returntype", Promise)
 ], MovieController.prototype, "update", null);
 __decorate([

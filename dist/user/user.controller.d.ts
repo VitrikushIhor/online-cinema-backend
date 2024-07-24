@@ -5,7 +5,7 @@ import { Types } from 'mongoose';
 export declare class UserController {
     private readonly userService;
     constructor(userService: UserService);
-    getProfile(_id: string): Promise<import("@typegoose/typegoose").DocumentType<UserModel, import("@typegoose/typegoose/lib/types").BeAnObject>>;
+    getProfile(_id: string): Promise<import("./user.model").UserProfile>;
     updateProfile(_id: string, data: UpdateUserDto): Promise<void>;
     getFavorites(_id: string): Promise<import("@typegoose/typegoose").Ref<import("../movie/movie.model").MovieModel, Types.ObjectId>[]>;
     toggleFavorite(movieId: Types.ObjectId, user: UserModel): Promise<void>;

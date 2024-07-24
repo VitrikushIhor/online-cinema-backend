@@ -40,6 +40,10 @@ let CommentService = class CommentService {
         const deletedComment = await this.CommentModel.findByIdAndDelete(commentId);
         return deletedComment;
     }
+    async deleteByUserId(userId) {
+        const deletedComment = await this.CommentModel.deleteMany({ userId: userId });
+        return deletedComment;
+    }
 };
 CommentService = __decorate([
     (0, common_1.Injectable)(),

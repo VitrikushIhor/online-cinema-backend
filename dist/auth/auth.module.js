@@ -16,6 +16,7 @@ const auth_controller_1 = require("./auth.controller");
 const user_model_1 = require("../user/user.model");
 const auth_service_1 = require("./auth.service");
 const jwt_config_1 = require("../config/jwt.config");
+const files_module_1 = require("../files/files.module");
 let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([
@@ -31,6 +32,7 @@ AuthModule = __decorate([
                 }
             ]),
             config_1.ConfigModule,
+            files_module_1.FilesModule,
             jwt_1.JwtModule.registerAsync({
                 imports: [config_1.ConfigModule],
                 inject: [config_1.ConfigService],

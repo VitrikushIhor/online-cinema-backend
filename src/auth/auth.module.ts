@@ -7,6 +7,7 @@ import { AuthController } from "./auth.controller";
 import { UserModel } from "../user/user.model";
 import { AuthService } from "./auth.service";
 import { getJWTConfig } from "../config/jwt.config";
+import { FilesModule } from '../files/files.module'
 
 @Module({
 	controllers: [AuthController],
@@ -20,6 +21,7 @@ import { getJWTConfig } from "../config/jwt.config";
 			}
 		]),
 		ConfigModule,
+		FilesModule,
 		JwtModule.registerAsync({
 			imports: [ConfigModule],
 			inject: [ConfigService],

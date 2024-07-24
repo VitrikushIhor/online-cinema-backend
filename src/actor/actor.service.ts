@@ -3,7 +3,7 @@ import {DocumentType, ModelType} from "@typegoose/typegoose/lib/types";
 import {Types} from "mongoose";
 import {InjectModel} from "nestjs-typegoose";
 import {ActorModel} from "./actor.model";
-import {CreateActorDto} from "./dto/actor.dto";
+import { CreateActorDto, UpdateActorDto } from './dto/actor.dto'
 
 @Injectable()
 export class ActorService {
@@ -71,7 +71,7 @@ export class ActorService {
 
 	async update(
 		id: string,
-		dto: CreateActorDto
+		dto: UpdateActorDto
 	): Promise<DocumentType<ActorModel> | null> {
 		return await  this.actorModel.findByIdAndUpdate(id, dto, {new: true}).exec();
 	}

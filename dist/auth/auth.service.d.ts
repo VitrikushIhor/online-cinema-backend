@@ -28,10 +28,12 @@ import { ModelType } from '@typegoose/typegoose/lib/types';
 import { RefreshTokenDto } from './dto/refreshToken.dto';
 import { AuthDto } from './dto/auth.dto';
 import { UserModel } from '../user/user.model';
+import { ConfigService } from '@nestjs/config';
 export declare class AuthService {
     private readonly userModel;
     private readonly jwtService;
-    constructor(userModel: ModelType<UserModel>, jwtService: JwtService);
+    private readonly configService;
+    constructor(userModel: ModelType<UserModel>, jwtService: JwtService, configService: ConfigService);
     login({ email, password }: AuthDto): Promise<{
         refreshToken: string;
         accessToken: string;

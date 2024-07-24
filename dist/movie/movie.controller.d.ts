@@ -22,7 +22,7 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { CreateMovieDto } from './dto/create-movie.dto';
+import { UpdateMovieDto } from './dto/create-movie.dto';
 import { MovieService } from './movie.service';
 import { Types } from 'mongoose';
 export declare class MovieController {
@@ -38,6 +38,6 @@ export declare class MovieController {
     }>>;
     get(id: string): Promise<import("@typegoose/typegoose").DocumentType<import("./movie.model").MovieModel, import("@typegoose/typegoose/lib/types").BeAnObject>>;
     create(): Promise<Types.ObjectId>;
-    update(id: string, dto: CreateMovieDto): Promise<import("@typegoose/typegoose").DocumentType<import("./movie.model").MovieModel, import("@typegoose/typegoose/lib/types").BeAnObject>>;
+    update(id: string, dto: UpdateMovieDto): Promise<import("@typegoose/typegoose").DocumentType<import("./movie.model").MovieModel, import("@typegoose/typegoose/lib/types").BeAnObject>>;
     delete(id: string): Promise<void>;
 }

@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateActorDto = void 0;
+exports.UpdateActorDto = exports.CreateActorDto = void 0;
 const class_validator_1 = require("class-validator");
 class CreateActorDto {
 }
@@ -30,4 +30,27 @@ __decorate([
     __metadata("design:type", String)
 ], CreateActorDto.prototype, "description", void 0);
 exports.CreateActorDto = CreateActorDto;
+class UpdateActorDto {
+}
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateActorDto.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateActorDto.prototype, "slug", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateActorDto.prototype, "photo", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateActorDto.prototype, "description", void 0);
+exports.UpdateActorDto = UpdateActorDto;
 //# sourceMappingURL=actor.dto.js.map

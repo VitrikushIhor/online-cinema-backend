@@ -1,15 +1,17 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
 import { DocumentType, ModelType } from '@typegoose/typegoose/lib/types'
 import { genSalt, hash } from 'bcryptjs'
 import { Types } from 'mongoose'
 import { InjectModel } from 'nestjs-typegoose'
 import { UpdateUserDto } from './dto/update.dto'
-import { UserModel } from './user.model'
+import { UserModel, UserProfile } from './user.model'
+import { CommentService } from '../comment/comment.service'
 
 @Injectable()
 export class UserService {
 	constructor(
-		@InjectModel(UserModel) private readonly userModel: ModelType<UserModel>
+		@InjectModel(UserModel) private readonly userModel: ModelType<UserModel>,
+	private readonly commentService: CommentService
 	) {}
 
 	async byId(id: string): Promise<DocumentType<UserModel>> {
@@ -19,28 +21,57 @@ export class UserService {
 		throw new NotFoundException('User not found')
 	}
 
-	async updateProfile(_id: string, data: UpdateUserDto) {
-		const user = await this.userModel.findById(_id)
-		const isSameUser = await this.userModel.findOne({ email: data.email })
 
-		if (isSameUser && String(_id) !== String(isSameUser._id)) {
-			throw new NotFoundException('Email busy')
-		}
+	async getProfile(id: string): Promise<UserProfile> {
+		const user= await this.userModel.findById(id)
 
 		if (user) {
-			if (data.password) {
-				const salt = await genSalt(10)
-				user.password = await hash(data.password, salt)
+			return {
+				_id: user._id,
+				email: user.email,
+				userName: user.userName,
+				avatar: user.avatar
 			}
-			user.email = data.email
-			user.avatar = data.avatar
-			user.userName = data.userName
-			if (data.isAdmin || data.isAdmin === false) user.isAdmin = data.isAdmin
-			await user.save()
-			return
+		}
+		throw new NotFoundException('User not found')
+	}
+
+	async updateProfile(_id: string, data: UpdateUserDto): Promise<void> {
+		// Перевірка, чи є email в даних
+		if (data.email && data.email.trim() !== '') {
+			const isSameUser = await this.userModel.findOne({ email: data.email });
+
+			if (isSameUser && String(_id) !== String(isSameUser._id)) {
+				throw new BadRequestException('Email is already in use');
+			}
 		}
 
-		throw new NotFoundException('User not found')
+		// Отримання користувача
+		const user: DocumentType<UserModel> | null = await this.userModel.findById(_id);
+
+		if (!user) {
+			throw new NotFoundException('User not found');
+		}
+
+		// Хешування пароля, якщо він вказаний
+		let newPassword: string | undefined;
+		if (data.password && data.password.trim() !== '') {
+			const salt = await genSalt(10);
+			newPassword = await hash(data.password, salt);
+		}
+
+		// Оновлення користувача
+		const updateData = { ...data };
+		if (newPassword) {
+			updateData.password = newPassword;
+		}
+
+		const updatedUser = await this.userModel.findByIdAndUpdate(_id, updateData, { new: true }).exec();
+
+		if (!updatedUser) {
+			throw new NotFoundException('Failed to update user');
+		}
+
 	}
 
 	async getFavoriteMovies(_id: string) {
@@ -93,6 +124,8 @@ export class UserService {
 	}
 
 	async delete(id: string): Promise<DocumentType<UserModel> | null> {
-		return await this.userModel.findByIdAndDelete(id).exec()
+		const user =  await this.userModel.findByIdAndDelete(id).exec()
+		const comment = await this.commentService.deleteByUserId(id)
+		return user
 	}
 }

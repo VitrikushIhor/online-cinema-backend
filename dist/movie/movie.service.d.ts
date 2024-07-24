@@ -24,7 +24,7 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { DocumentType, ModelType } from '@typegoose/typegoose/lib/types';
 import { Types } from 'mongoose';
-import { CreateMovieDto } from './dto/create-movie.dto';
+import { UpdateMovieDto } from './dto/create-movie.dto';
 import { MovieModel } from './movie.model';
 export declare class MovieService {
     private readonly movieModel;
@@ -38,7 +38,7 @@ export declare class MovieService {
     }>>;
     byId(id: string): Promise<DocumentType<MovieModel>>;
     create(): Promise<Types.ObjectId>;
-    update(id: string, dto: CreateMovieDto): Promise<DocumentType<MovieModel> | null>;
+    update(id: string, dto: UpdateMovieDto): Promise<DocumentType<MovieModel> | null>;
     delete(id: string): Promise<DocumentType<MovieModel> | null>;
     getMostPopular(): Promise<DocumentType<MovieModel>[]>;
     updateRating(id: string, newRating: number): Promise<import("mongoose").Document<Types.ObjectId, import("@typegoose/typegoose/lib/types").BeAnObject, MovieModel> & MovieModel & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction & Required<{
