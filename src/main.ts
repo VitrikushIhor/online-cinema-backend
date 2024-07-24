@@ -33,7 +33,7 @@ async function start() {
 	const corsOptions: CorsOptions = {
 		origin: '*', // Замініть на домен вашого клієнта
 		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-		allowedHeaders: 'Content-Type, Accept',
+		allowedHeaders: 'Content-Type, Accept, Authorization',
 	};
 	app.enableCors(corsOptions);
 
