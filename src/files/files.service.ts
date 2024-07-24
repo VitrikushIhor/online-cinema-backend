@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { v2 as cloudinary, UploadApiResponse, UploadApiErrorResponse } from 'cloudinary';
 import { FileResponse } from './dto/file.response';
+import { Express } from 'express';
 
 @Injectable()
 export class FilesService {
