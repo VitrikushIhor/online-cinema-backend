@@ -10,6 +10,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { FileResponse } from './dto/file.response';
 import { FilesService } from './files.service';
 import { ApiTags } from '@nestjs/swagger';
+import { Express } from 'express'
 
 @ApiTags('File')
 @Controller('files')

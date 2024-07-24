@@ -6,6 +6,8 @@ import * as process from 'process'
 async function start() {
 	const app = await NestFactory.create(AppModule)
 	const PORT = process.env.PORT || 5000
+	// eslint-disable-next-line no-console
+	console.log(PORT)
 
 	app.enableCors()
 	app.setGlobalPrefix('api')
