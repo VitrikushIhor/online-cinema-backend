@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import * as process from 'process'
+import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface'
 
 async function start() {
 	const app = await NestFactory.create(AppModule)
@@ -9,11 +10,7 @@ async function start() {
 	// eslint-disable-next-line no-console
 	console.log(PORT)
 
-  app.enableCors({
-    origin: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-  });
+
 	app.setGlobalPrefix('api')
 
 	const configSwagger = new DocumentBuilder()
@@ -32,6 +29,13 @@ async function start() {
 
 	const documentSwagger = SwaggerModule.createDocument(app, configSwagger)
 	SwaggerModule.setup('api/docs', app, documentSwagger)
+
+	const corsOptions: CorsOptions = {
+		origin: '*', // Замініть на домен вашого клієнта
+		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+		allowedHeaders: 'Content-Type, Accept',
+	};
+	app.enableCors(corsOptions);
 
 	await app.listen(PORT, () => `Server started on port = ${PORT}`)
 }
