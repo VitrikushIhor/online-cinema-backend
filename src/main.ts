@@ -9,7 +9,11 @@ async function start() {
 	// eslint-disable-next-line no-console
 	console.log(PORT)
 
-	app.enableCors()
+	app.enableCors({
+  	origin: '*', 
+  	methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  	credentials: true,
+	});
 	app.setGlobalPrefix('api')
 
 	const configSwagger = new DocumentBuilder()
