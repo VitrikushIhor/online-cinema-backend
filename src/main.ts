@@ -10,7 +10,7 @@ async function start() {
 	console.log(PORT)
 
   app.enableCors({
-    origin: '*',
+    origin: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
