@@ -31,7 +31,7 @@ async function start() {
 	SwaggerModule.setup('api/docs', app, documentSwagger)
 
 	const corsOptions: CorsOptions = {
-		origin: '*', // Замініть на домен вашого клієнта
+		origin: '*',
 		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 		allowedHeaders: 'Content-Type, Accept, Authorization',
 	};
