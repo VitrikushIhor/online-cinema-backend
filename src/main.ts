@@ -31,7 +31,12 @@ async function start() {
 	SwaggerModule.setup('api/docs', app, documentSwagger)
 
 	const corsOptions: CorsOptions = {
-		origin: '*',
+		origin: [
+			'https://space-cinema.vercel.app',
+			'https://space-cinema.me',
+			'https://www.space-cinema.me'
+		],
+		credentials: true,
 		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 		allowedHeaders: 'Content-Type, Accept, Authorization',
 	};
