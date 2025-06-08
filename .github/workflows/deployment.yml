@@ -58,5 +58,5 @@ jobs:
           docker run -d \
             --name space-cinema-backend\
             --env-file .env \
-            -p 8000:8000 \
+            -p 80:8000 \
             nyarlathoted/space-cinema-backend:latest
