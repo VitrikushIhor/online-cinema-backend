@@ -1,4 +1,4 @@
-name: Deploy Nest.JS Application Stage Backend
+name: Deploy Nest.JS Application Stage Backend Cinema
 
 on:
   push:
